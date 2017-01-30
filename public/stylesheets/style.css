@@ -1,0 +1,23 @@
+body {
+  padding: 20px;
+  background-color:green !important;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+imgclass{
+  vertical-align:middle;
+}
+a {
+  color: #00B7FF;
+}
+
+.fbody{
+  background-color:orange;
+}
+
+.res{
+  background-color:red;
+  margin-top:10px;
+	font:30px;
+	
+}
