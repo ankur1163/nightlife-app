@@ -6,6 +6,7 @@ import Home from './components/layout/Home.js'
 
 import Login from './Login/Login'
 import Waste from './Login/Waste.js'
+import Example from './Login/Example.js'
 //import    Polldetail from './components/layout/Polldetail.js'; // testing different Poll details
 
 
@@ -19,7 +20,7 @@ import AuthService from './utils/AuthService'
 const routes = new makeMainRoutes()
 
 const mountNode = document.getElementById('root');
-const auth = new AuthService('7SJudZnU0L7f1uFNXiH4o9P2gBgYH317', 'app1163.auth0.com');
+const auth = new AuthService('HNfg5DdOA7ZlawVWyGoFZX8qM2lpZQGV', 'app1163.auth0.com');
 
 // validate authentication for private routes
 const requireAuth = (nextState, replace) => {
@@ -34,7 +35,8 @@ ReactDOM.render( <Router history={browserHistory}>
     <IndexRoute component={Yelphome} />
       <Route path="login" component={Login} />
       
-      <Route path="waste" component={Waste}  />
+      <Route path="waste" component={Waste} onEnter={requireAuth}  />
+      <Route path="example" component={Example} />
       
       
       

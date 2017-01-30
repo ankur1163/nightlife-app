@@ -110,8 +110,11 @@ class Yelphome extends Component {
         
         return (
             <div>
+            <Link to="/waste">Waste Page</Link><br />
+            <Link to="/example">Example page</Link>
                 <div className="fbody">
                 <h2> This is yelp page </h2>
+                
                 
                 <input value={this.state.searchterm} onChange={this.onvaluechange.bind(this)} type="text"></input><button onClick={this.yelpsearch.bind(this)} >Search</button><br /><br />
                 <input value={this.state.username} onChange={this.onusernamechange.bind(this)} type="text" /><button onClick={this.saveusername.bind(this)}>save username</button>

@@ -6,7 +6,7 @@ export default class AuthService {
     // Configure Auth0
     this.lock = new Auth0Lock(clientId, domain, {
       auth: {
-        redirectUrl: 'https://voting-app-bizzel.c9users.io/login',
+        redirectUrl: 'https://yelp-project-restlessankur.c9users.io/login',
         responseType: 'token'
       }
     })

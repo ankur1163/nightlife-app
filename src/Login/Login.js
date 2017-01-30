@@ -6,23 +6,12 @@ import AuthService from '../utils/AuthService'
 
 export class Login extends React.Component {
     
-    static contextTypes = {
-    router: T.object
-  }
-  
-  
+    
   static propTypes = {
     location: T.object,
     auth: T.instanceOf(AuthService)
   }
-  componentWillMount(){
-      
-      console.log("ankur");
-      console.log("this is props",this.props)
-    
-    console.log("authservice 2 ",this.AuthService)
-  }
-
+  
   render() {
     const { auth } = this.props
     
