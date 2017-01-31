@@ -38,17 +38,20 @@ export default {
             .set('Accept', 'application/json')
             .end((err, response) => {
                 if (err) { 
-                	console.log(err);
+                	console.log("error in api manager after returning",err);
 				    callback(err, null);
 				    return;}
 				// here check for API failures
 				const confirmation = response.body.confirmation;
 				if (confirmation != 'success') {
 				    // send a failure message
+				    
+				    console.log("no error from mongodb but confirmation is not success")
 				    callback({message:response.body.message, null});
 				    return;
 				}
-				callback(response, response.body);
+				console.log("everything went well")
+				callback(null, response.body);
             })
         
     },

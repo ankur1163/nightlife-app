@@ -3,9 +3,8 @@ import React, { Component } from 'react'
 import Api from '../../utils/ApiManager';
 
 import {Link} from 'react-router';
-import {browserHistory} from 'react-router';
 
-class Yelphome extends Component {
+class Yelphome2 extends Component {
     constructor(){
         
         super()
@@ -13,15 +12,52 @@ class Yelphome extends Component {
             this.state = {
                 searchterm:"",
                 results:[],
-                username:""
+                username:"",
+                
               
         };
     }
+    componentWillMount(){
+        var sterm1 = localStorage.getItem("searchterm");
+        if(sterm1){
+            this.setState({searchterm:sterm1})
+        }
+    }
+    
     componentDidMount(){
-        var sterm = localStorage.getItem("searchterm");
-        if(sterm){
+        var sterm1 = localStorage.getItem("searchterm");
+        console.log("inside component did mount")
+        console.log("sterm1 value",sterm1)
+        if(sterm1){
             console.log("sterm is here in local storage",sterm);
-            yelpsearchtwo(sterm);
+            //start
+            
+                var sterm = sterm1;
+                
+      
+      
+        Api.get('/api/yelp/' + sterm, null, (err, response) => {
+            // Call above goes to ApiManager.js
+            if (err) { 
+                // err = { message: "Not found anything", null: null }
+                console.log("error",err)
+                alert("Error: " + err); 
+                return;
+            }
+        else{
+            console.log("response in front end",response.message)
+            var arr1 = [];
+            console.log("here's the yelp response",response.message)
+            arr1 =response.message;
+            this.setState({results:arr1})
+            
+            
+        }
+         
+        });
+            
+            //end
+            
             
         }
         else{
@@ -34,48 +70,30 @@ class Yelphome extends Component {
     
     goingfunc(e){
         
-        var idtoken = localStorage.getItem("id_token");
-        if(idtoken){
-            
-            var username = this.state.username;
-        var id=e.target.id;
-        var url ="/api/yelp/"+username;
-        url = url+"/";
-        url=url+id;
-        console.log("url is",url)
-         Api.post(url, null, (err, response) => {
-            // Call above goes to ApiManager.js
-            if (err) { 
-                // err = { message: "Not found anything", null: null }}
-                console.log("error",err)
-                alert("Error: " + err); 
-                return;
-            }
-        else{
-            var arr1 = [];
-            console.log("here's the yelp response",response.message)
-            
-            
-            
-            
-        }
-         
-        });
-            
-        }
-        else{
-            browserHistory.push('/login');
-        }
         
-        
-        
-        /*
        
             var username = this.state.username;
-        var id=e.target.id;
+        var idtofind=e.target.id;
+        
+        //find index number 
+                    function findWithAttr(array, attr, value) {
+                for(var i = 0; i < array.length; i += 1) {
+                    if(array[i][attr] === value) {
+                        return i;
+                    }
+                }
+                return -1;
+            }
+
+       
+        
+        //ends here
+        var id = "id";
+        var index1 = findWithAttr(this.state.results,id,idtofind);
+        console.log("this is index",index1)
         var url ="/api/yelp/"+username;
         url = url+"/";
-        url=url+id;
+        url=url+idtofind;
         console.log("url is",url)
          Api.post(url, null, (err, response) => {
             // Call above goes to ApiManager.js
@@ -87,7 +105,12 @@ class Yelphome extends Component {
             }
         else{
             var arr1 = [];
-            console.log("here's the yelp response",response.message)
+            console.log("this.state.results",this.state.results)
+            var c1 = this.state.results[index1].going +1;
+            var newres = this.state.results;
+            newres[index1].going=newres[index1].going+1;
+            this.setState({results:newres})
+            console.log("everything went wellfrom mongodb to frontend.")
             
             
             
@@ -95,7 +118,7 @@ class Yelphome extends Component {
         }
          
         });
-       */
+       
     }
     onvaluechange(e){
         this.setState({searchterm:e.target.value})
@@ -188,7 +211,7 @@ class Yelphome extends Component {
                      <img className="img-responsive center-block" src={i.image_url} alt="Smiley face" height="100" width="100" />
                      </div>
                      <div className="col-xs-9">
-                     <p>{i.name}  </p><button id={i.id} onClick={this.goingfunc}>{i.going} going</button><br />
+                     <p>{i.name}  </p><button  id={i.id} onClick={this.goingfunc}>{i.going} going</button><br />
                      <p>{i.snippet_text}</p>
                      </div>
                  
@@ -223,4 +246,4 @@ class Yelphome extends Component {
     }
 }
 
-export default Yelphome;
+export default Yelphome2;

@@ -92,13 +92,13 @@ router.post("/:resource/:username/:id", function(req, res, next){
     controller.modify(req.params, function(err, result) {
         
          if (err){
-             console.log(err);
+             console.log("there is some error",err);
             res.json({ confirmation: 'fail',
                 message: err
             });
             return;
         }
-        console.log(result);
+        console.log("ok, we got the results",result);
         res.json({ confirmation: 'success',
                 message: result
             });

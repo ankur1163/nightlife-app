@@ -12,9 +12,11 @@ export class Login extends React.Component {
     auth: T.instanceOf(AuthService)
   }
   
+  
   render() {
     const { auth } = this.props
-    
+    console.log("here's props",this.props)
+    console.log("here's the auth",auth)
     return (
       <div>
         <h2>Login</h2>
