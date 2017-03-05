@@ -7,7 +7,8 @@ export default class AuthService {
     this.lock = new Auth0Lock(clientId, domain, {
       auth: {
         redirectUrl: 'https://yelp-project-restlessankur.c9users.io/login',
-        responseType: 'token'
+        responseType: 'token',
+        params: {state: 'foo'},
       }
     })
     // Add callback for lock `authenticated` event
@@ -20,7 +21,31 @@ export default class AuthService {
     // Saves the user token
     this.setToken(authResult.idToken)
     // navigate to the home route
-    browserHistory.replace('/home')
+    
+    
+    browserHistory.replace('/')
+    
+      this.lock.getProfile(authResult.idToken, (error, profile) => {
+      if (error) {
+        console.log('Error loading the Profile', error)
+      } else {
+        this.setProfile(profile)
+      }
+    })
+  }
+
+  setProfile(profile) {
+    // Saves profile data to local storage
+    localStorage.setItem('profile', JSON.stringify(profile))
+    console.log("lets set the profile")
+    // Triggers profile_updated event to update the UI
+    this.emit('profile_updated', profile)
+  }
+
+  getProfile() {
+    // Retrieves the profile data from local storage
+    const profile = localStorage.getItem('profile')
+    return profile ? JSON.parse(localStorage.profile) : {}
   }
 
   login() {

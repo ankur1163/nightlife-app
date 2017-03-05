@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import Yelphome from './components/layout/Yelphome'
-import Yelphome2 from './components/layout/Yelphome2'
+
 import Home from './components/layout/Home.js'
 
 
@@ -36,14 +36,14 @@ ReactDOM.render( <Router history={browserHistory}>
     
     <IndexRoute component={Yelphome} />
       <Route path="login" component={Login} />
-      <Route path="home" component={Yelphome2} />
+      
       <Route path="waste" component={Waste} onEnter={requireAuth}  />
       <Route path="example" component={Example} />
       
       
       
     </Route>
-    <Route path="/home" component={Yelphome2} />
+    
     
     
   </Router>,mountNode);

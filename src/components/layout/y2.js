@@ -18,16 +18,26 @@ class Yelphome2 extends Component {
         };
     }
     componentWillMount(){
+         var username;
+         if(localStorage.getItem("profile")){
+            console.log("full profile",localStorage.getItem("profile"))
+        var obj = localStorage.getItem("profile")
+        console.log("parsed value",JSON.parse(obj))
+        var parobj = JSON.parse(obj);
+        username = parobj.email;
+        console.log("email is",username)
         var sterm1 = localStorage.getItem("searchterm");
-        if(sterm1){
-            this.setState({searchterm:sterm1})
-        }
+        
+            this.setState({"username":username})
+        
+    }
     }
     
     componentDidMount(){
         var sterm1 = localStorage.getItem("searchterm");
         console.log("inside component did mount")
         console.log("sterm1 value",sterm1)
+        console.log("this.state.username",this.state.username)
         if(sterm1){
             console.log("sterm is here in local storage",sterm);
             //start
@@ -227,14 +237,13 @@ class Yelphome2 extends Component {
         
         return (
             <div>
-            <Link to="/waste">Waste Page</Link><br />
-            <Link to="/example">Example page</Link>
+            
                 <div className="fbody">
-                <h2> This is yelp page </h2>
+                <h2> This is Yelp page </h2>
                 
                 
                 <input value={this.state.searchterm} onChange={this.onvaluechange.bind(this)} type="text"></input><button onClick={this.yelpsearch.bind(this)} >Search</button><br /><br />
-                <input value={this.state.username} onChange={this.onusernamechange.bind(this)} type="text" /><button onClick={this.saveusername.bind(this)}>save username</button>
+                
                 </div>
                 <div>
                 <div  className="container">
